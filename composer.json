@@ -4,13 +4,13 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4|^8",
         "caseyamcl/guzzle_retry_middleware": "^2.2",
         "guzzlehttp/guzzle": "^6.3",
         "pcrov/jsonreader": "^1"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.0",
+        "friendsofphp/php-cs-fixer": "^2.14",
         "phpunit/phpunit": "^9.1",
         "psr/log": "^1.1"
     },
@@ -25,9 +25,6 @@
         }
     },
     "config": {
-        "platform": {
-            "php": "7.4"
-        },
         "preferred-install": {
             "*": "dist"
         },

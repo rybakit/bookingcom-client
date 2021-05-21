@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the bookingcom/client package.
+ *
+ * (c) Eugene Leonovich <gen.work@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Bookingcom\Client;
@@ -28,12 +37,12 @@ final class City
         $this->translations = $translations;
     }
 
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data) : self
     {
-        $data = array_filter($data);
+        $data = \array_filter($data);
 
-        if ($diff = array_diff(['name', 'country', 'location', 'translations'], array_keys($data))) {
-            throw new InvalidArgumentException(sprintf('Missing or empty field(s): "%s".', implode('", "', $diff)));
+        if ($diff = \array_diff(['name', 'country', 'location', 'translations'], \array_keys($data))) {
+            throw new InvalidArgumentException(\sprintf('Missing or empty field(s): "%s".', \implode('", "', $diff)));
         }
 
         return new self(
@@ -45,7 +54,7 @@ final class City
         );
     }
 
-    public function withTranslations(iterable $translations): self
+    public function withTranslations(iterable $translations) : self
     {
         $self = clone $this;
         $self->translations = $translations;
@@ -53,27 +62,27 @@ final class City
         return $self;
     }
 
-    public function getName(): string
+    public function getName() : string
     {
         return $this->name;
     }
 
-    public function getCountryCode(): string
+    public function getCountryCode() : string
     {
         return $this->countryCode;
     }
 
-    public function getLongitude(): float
+    public function getLongitude() : float
     {
         return $this->longitude;
     }
 
-    public function getLatitude(): float
+    public function getLatitude() : float
     {
         return $this->latitude;
     }
 
-    public function getTranslations(): iterable
+    public function getTranslations() : iterable
     {
         return $this->translations;
     }

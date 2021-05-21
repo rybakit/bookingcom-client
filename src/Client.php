@@ -1,19 +1,18 @@
 <?php
 
+/**
+ * This file is part of the bookingcom/client package.
+ *
+ * (c) Eugene Leonovich <gen.work@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Bookingcom\Client;
 
-use GuzzleHttp;
-use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\MessageFormatter;
-use GuzzleHttp\Middleware;
-use GuzzleHttp\Promise;
-use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleRetry\GuzzleRetryMiddleware;
 use Bookingcom\Client\Exception\InvalidArgumentException;
 use Bookingcom\Client\Exception\RuntimeException;
 use Bookingcom\Client\Result\ChangedHotels;
@@ -24,6 +23,16 @@ use Bookingcom\Client\Result\HotelFacilities;
 use Bookingcom\Client\Result\HotelFacilityTypes;
 use Bookingcom\Client\Result\Hotels;
 use Bookingcom\Client\Result\HotelTypes;
+use GuzzleHttp;
+use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\Promise;
+use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleRetry\GuzzleRetryMiddleware;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -56,12 +65,8 @@ final class Client
      * Returns all hotel ids which has closed or data has changed since the given timestamp.
      *
      * @see https://developers.booking.com/api/technical.html?version=2.3#!/Static/changedHotels
-     *
-     * @param LastChange $lastChange
-     *
-     * @return PromiseInterface
      */
-    public function getChangedHotels(LastChange $lastChange): PromiseInterface
+    public function getChangedHotels(LastChange $lastChange) : PromiseInterface
     {
         return $this->getAsync('changedHotels', [
             'last_change' => $lastChange->toString(),
@@ -75,20 +80,16 @@ final class Client
      *
      * @see https://developers.booking.com/api/technical.html?version=2.3#!/Static/hotels
      *
-     * @param array $hotelIds
-     *
      * @throws InvalidArgumentException
-     *
-     * @return PromiseInterface
      */
-    public function getHotelsByIds(array $hotelIds): PromiseInterface
+    public function getHotelsByIds(array $hotelIds) : PromiseInterface
     {
         if (!$hotelIds) {
             throw new InvalidArgumentException('The list of hotel ids is empty.');
         }
 
         $query = [
-            'hotel_ids' => implode(',', $hotelIds),
+            'hotel_ids' => \implode(',', $hotelIds),
             'extras' => 'hotel_info,hotel_facilities,hotel_photos,room_info',
         ];
 
@@ -101,13 +102,8 @@ final class Client
      * Returns the hotel descriptions for the provided languages.
      *
      * @see https://developers.booking.com/api/technical.html?version=2.3#!/Static/hotels
-     *
-     * @param int   $hotelId
-     * @param array $langIso2Codes
-     *
-     * @return PromiseInterface
      */
-    public function getHotelDescriptions(int $hotelId, array $langIso2Codes): PromiseInterface
+    public function getHotelDescriptions(int $hotelId, array $langIso2Codes) : PromiseInterface
     {
         $promises = [];
         foreach ($langIso2Codes as $code) {
@@ -127,13 +123,8 @@ final class Client
      * Returns the hotel facilities for the provided languages.
      *
      * @see https://developers.booking.com/api/technical.html?version=2.3#!/Static/hotels
-     *
-     * @param int   $hotelId
-     * @param array $langIso2Codes
-     *
-     * @return PromiseInterface
      */
-    public function getHotelFacilities(int $hotelId, array $langIso2Codes): PromiseInterface
+    public function getHotelFacilities(int $hotelId, array $langIso2Codes) : PromiseInterface
     {
         $promises = [];
         foreach ($langIso2Codes as $code) {
@@ -153,15 +144,11 @@ final class Client
      * Returns hotel types names and their translations.
      *
      * @see https://developers.booking.com/api/technical.html?version=2.3#!/Static/hotelTypes
-     *
-     * @param array $langIso2Codes
-     *
-     * @return PromiseInterface
      */
-    public function getHotelTypes(array $langIso2Codes): PromiseInterface
+    public function getHotelTypes(array $langIso2Codes) : PromiseInterface
     {
         $query = [
-            'languages' => implode(',', $langIso2Codes),
+            'languages' => \implode(',', $langIso2Codes),
         ];
 
         return $this->getAsync('hotelTypes', $query)->then(static function (ResponseInterface $response) {
@@ -173,15 +160,11 @@ final class Client
      * Returns hotel facility types names and their translations.
      *
      * @see https://developers.booking.com/api/technical.html?version=2.3#!/Static/hotelFacilityTypes
-     *
-     * @param array $langIso2Codes
-     *
-     * @return PromiseInterface
      */
-    public function getHotelFacilityTypes(array $langIso2Codes): PromiseInterface
+    public function getHotelFacilityTypes(array $langIso2Codes) : PromiseInterface
     {
         $query = [
-            'languages' => implode(',', $langIso2Codes),
+            'languages' => \implode(',', $langIso2Codes),
         ];
 
         return $this->getAsync('hotelFacilityTypes', $query)->then(static function (ResponseInterface $response) {
@@ -193,15 +176,11 @@ final class Client
      * Returns facility types names and their translations.
      *
      * @see https://developers.booking.com/api/technical.html?version=2.3#!/Static/facilityTypes
-     *
-     * @param array $langIso2Codes
-     *
-     * @return PromiseInterface
      */
-    public function getFacilityTypes(array $langIso2Codes): PromiseInterface
+    public function getFacilityTypes(array $langIso2Codes) : PromiseInterface
     {
         $query = [
-            'languages' => implode(',', $langIso2Codes),
+            'languages' => \implode(',', $langIso2Codes),
         ];
 
         return $this->getAsync('facilityTypes', $query)->then(static function (ResponseInterface $response) {
@@ -213,17 +192,11 @@ final class Client
      * Returns a list of cities where Booking.com offers hotels.
      *
      * @see https://developers.booking.com/api/technical.html?version=2.3#!/Static/cities
-     *
-     * @param array $langIso2Codes
-     * @param int   $limit
-     * @param int   $offset
-     *
-     * @return PromiseInterface
      */
-    public function getCities(array $langIso2Codes, int $limit, int $offset = 0): PromiseInterface
+    public function getCities(array $langIso2Codes, int $limit, int $offset = 0) : PromiseInterface
     {
         $query = [
-            'languages' => implode(',', $langIso2Codes),
+            'languages' => \implode(',', $langIso2Codes),
             'rows' => $limit,
             'offset' => $offset,
             'extras' => 'location',
@@ -234,7 +207,7 @@ final class Client
         });
     }
 
-    private function getAsync(string $action, array $query = []): PromiseInterface
+    private function getAsync(string $action, array $query = []) : PromiseInterface
     {
         return $this->httpClient->requestAsync('GET', $action, ['query' => $query])
             ->otherwise(static function (\Throwable $e) {
@@ -252,7 +225,7 @@ final class Client
             });
     }
 
-    private static function createHandlerStack(LoggerInterface $logger): HandlerStack
+    private static function createHandlerStack(LoggerInterface $logger) : HandlerStack
     {
         $handlerStack = HandlerStack::create();
         $handlerStack->push(GuzzleRetryMiddleware::factory(['retry_on_timeout' => true]));
@@ -262,7 +235,7 @@ final class Client
         $handlerStack->push(static function (callable $handler) {
             return static function (RequestInterface $request, array $options) use ($handler) {
                 return $handler($request, $options)->otherwise(static function (\Throwable $reason) use ($request) {
-                    if (false === strpos($reason->getMessage(), 'reset by peer')) {
+                    if (false === \strpos($reason->getMessage(), 'reset by peer')) {
                         return Promise\rejection_for($reason);
                     }
 

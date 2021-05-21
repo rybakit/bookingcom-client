@@ -1,11 +1,20 @@
 <?php
 
+/**
+ * This file is part of the bookingcom/client package.
+ *
+ * (c) Eugene Leonovich <gen.work@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Bookingcom\Client\Tests\Unit\Result;
 
-use GuzzleHttp\Psr7\Response;
 use Bookingcom\Client\Result\HotelFacilityTypes;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 final class HotelFacilityTypesTest extends TestCase
@@ -13,7 +22,7 @@ final class HotelFacilityTypesTest extends TestCase
     /**
      * @dataProvider provideResultSetWithInvalidItemsData
      */
-    public function testFilterInvalidItemsFiltersOutInvalidItems(array $expectedResultKeys, string $jsonBody): void
+    public function testFilterInvalidItemsFiltersOutInvalidItems(array $expectedResultKeys, string $jsonBody) : void
     {
         $response = new Response(200, [], $jsonBody);
         $types = HotelFacilityTypes::fromResponse($response);
@@ -23,7 +32,7 @@ final class HotelFacilityTypesTest extends TestCase
         self::assertSame($expectedResultKeys, array_keys($all));
     }
 
-    public function provideResultSetWithInvalidItemsData(): iterable
+    public function provideResultSetWithInvalidItemsData() : iterable
     {
         yield [[2, 3], '{"result":[
             {"name": "Bar", "type": "boolean", "facility_type_id": 0, "hotel_facility_type_id": 1, "translations": [{"language": "en-gb", "name": ""}]},

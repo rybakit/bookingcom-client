@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the bookingcom/client package.
+ *
+ * (c) Eugene Leonovich <gen.work@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Bookingcom\Client;
@@ -17,7 +26,7 @@ final class HotelType
         $this->translations = $translations;
     }
 
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data) : self
     {
         if (empty($data['name'])) {
             throw new InvalidArgumentException('The "name" key is not found or empty.');
@@ -30,7 +39,7 @@ final class HotelType
         return new self($data['name'], new Translations($data['translations']));
     }
 
-    public function withTranslations(iterable $translations): self
+    public function withTranslations(iterable $translations) : self
     {
         $self = clone $this;
         $self->translations = $translations;
@@ -38,12 +47,12 @@ final class HotelType
         return $self;
     }
 
-    public function getName(): string
+    public function getName() : string
     {
         return $this->name;
     }
 
-    public function getTranslations(): iterable
+    public function getTranslations() : iterable
     {
         return $this->translations;
     }

@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the bookingcom/client package.
+ *
+ * (c) Eugene Leonovich <gen.work@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Bookingcom\Client\Tests\Unit;
@@ -10,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 final class LastChangeTest extends TestCase
 {
-    public function testFromString(): void
+    public function testFromString() : void
     {
         $date = new \DateTimeImmutable('-1 hour');
         $dateString = $date->format('Y-m-d H:i:s');
@@ -20,7 +29,7 @@ final class LastChangeTest extends TestCase
         self::assertSame($dateString, $lastChange->toString());
     }
 
-    public function testFromMax(): void
+    public function testFromMax() : void
     {
         $date = new \DateTimeImmutable('-2 days 30 seconds');
         $lastChange = LastChange::fromMax($date->getTimezone()->getName());
@@ -28,7 +37,7 @@ final class LastChangeTest extends TestCase
         self::assertSame($date->format('Y-m-d H:i:s'), $lastChange->toString());
     }
 
-    public function testFromExpiredDate(): void
+    public function testFromExpiredDate() : void
     {
         LastChange::fromString('-2 days 1 sec');
 
@@ -37,7 +46,7 @@ final class LastChangeTest extends TestCase
         LastChange::fromString('-2 days');
     }
 
-    public function testFromInvalidDate(): void
+    public function testFromInvalidDate() : void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Failed to parse time "foobar".');

@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the bookingcom/client package.
+ *
+ * (c) Eugene Leonovich <gen.work@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Bookingcom\Client\Tests\Integration;
@@ -10,7 +19,7 @@ use Bookingcom\Client\Result\ChangedHotels;
 
 final class ChangedHotelsTest extends TestCase
 {
-    public function testGetClosedHotelIds(): void
+    public function testGetClosedHotelIds() : void
     {
         $lastChange = LastChange::fromString('-1 day');
 
@@ -25,7 +34,7 @@ final class ChangedHotelsTest extends TestCase
         })->wait();
     }
 
-    public function testGetChanges(): void
+    public function testGetChanges() : void
     {
         $lastChange = LastChange::fromString('-1 day');
 

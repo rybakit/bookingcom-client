@@ -1,12 +1,21 @@
 <?php
 
+/**
+ * This file is part of the bookingcom/client package.
+ *
+ * (c) Eugene Leonovich <gen.work@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Bookingcom\Client\Tests\Integration;
 
-use GuzzleHttp\Psr7\Stream;
 use Bookingcom\Client\Exception\IOException;
 use Bookingcom\Client\Result\AsStreamableResult;
+use GuzzleHttp\Psr7\Stream;
 use pcrov\JsonReader\InputStream\Psr7Stream;
 use PHPUnit\Framework\TestCase;
 use function GuzzleHttp\Promise\coroutine;
@@ -14,7 +23,7 @@ use function GuzzleHttp\Promise\settle;
 
 final class JsonStreamTest extends TestCase
 {
-    public function testParallelReadThrowsIOException(): void
+    public function testParallelReadThrowsIOException() : void
     {
         $total = (int) (Psr7Stream::CHUNK_SIZE * 1.5);
 
@@ -60,7 +69,7 @@ final class JsonStreamTest extends TestCase
         settle($promises)->wait();
     }
 
-    public function testSequentialReadResetsPointer(): void
+    public function testSequentialReadResetsPointer() : void
     {
         $stream = fopen('php://memory', 'rw');
         fwrite($stream, '{"nums": [1, 2, 3]}');

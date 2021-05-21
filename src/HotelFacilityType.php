@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the bookingcom/client package.
+ *
+ * (c) Eugene Leonovich <gen.work@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Bookingcom\Client;
@@ -25,12 +34,12 @@ final class HotelFacilityType
         $this->translations = $translations;
     }
 
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data) : self
     {
-        $data = array_filter($data);
+        $data = \array_filter($data);
 
-        if ($diff = array_diff(['facility_type_id', 'name', 'type', 'translations'], array_keys($data))) {
-            throw new InvalidArgumentException(sprintf('Missing or empty field(s): "%s".', implode('", "', $diff)));
+        if ($diff = \array_diff(['facility_type_id', 'name', 'type', 'translations'], \array_keys($data))) {
+            throw new InvalidArgumentException(\sprintf('Missing or empty field(s): "%s".', \implode('", "', $diff)));
         }
 
         return new self(
@@ -41,7 +50,7 @@ final class HotelFacilityType
         );
     }
 
-    public function withTranslations(iterable $translations): self
+    public function withTranslations(iterable $translations) : self
     {
         $self = clone $this;
         $self->translations = $translations;
@@ -49,22 +58,22 @@ final class HotelFacilityType
         return $self;
     }
 
-    public function getFacilityTypeId(): int
+    public function getFacilityTypeId() : int
     {
         return $this->facilityTypeId;
     }
 
-    public function getName(): string
+    public function getName() : string
     {
         return $this->name;
     }
 
-    public function getType(): string
+    public function getType() : string
     {
         return $this->type;
     }
 
-    public function getTranslations(): iterable
+    public function getTranslations() : iterable
     {
         return $this->translations;
     }

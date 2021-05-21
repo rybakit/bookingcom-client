@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the bookingcom/client package.
+ *
+ * (c) Eugene Leonovich <gen.work@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Bookingcom\Client\Tests\Integration;
@@ -8,7 +17,7 @@ use Bookingcom\Client\Result\Hotels;
 
 final class HotelsTest extends TestCase
 {
-    public function testGetHotelsByIds(): void
+    public function testGetHotelsByIds() : void
     {
         self::$client->getHotelsByIds([10003, 10004])->then(function (Hotels $hotels) {
             foreach ($hotels as $hotelId => $hotel) {

@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the bookingcom/client package.
+ *
+ * (c) Eugene Leonovich <gen.work@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Bookingcom\Client;
@@ -18,7 +27,7 @@ final class JsonReader
         $this->stream = $stream;
     }
 
-    public function read(string $jsonPointer = ''): iterable
+    public function read(string $jsonPointer = '') : iterable
     {
         if ($this->isLocked) {
             throw new IOException('Stream is already in use.');
@@ -50,18 +59,18 @@ final class JsonReader
         }
     }
 
-    private static function seekTo(PcrovJsonReader $reader, string $jsonPointer): bool
+    private static function seekTo(PcrovJsonReader $reader, string $jsonPointer) : bool
     {
-        if (!$nodes = explode('/', trim($jsonPointer, '/'))) {
+        if (!$nodes = \explode('/', \trim($jsonPointer, '/'))) {
             return false;
         }
 
-        $node = array_shift($nodes);
+        $node = \array_shift($nodes);
         if (!$reader->read($node)) {
             return false;
         }
 
-        if (0 === strpos($jsonPointer, '/') && 1 !== $reader->depth()) {
+        if (0 === \strpos($jsonPointer, '/') && 1 !== $reader->depth()) {
             return false;
         }
 

@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the bookingcom/client package.
+ *
+ * (c) Eugene Leonovich <gen.work@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Bookingcom\Client\Result;
@@ -17,12 +26,12 @@ trait AsStreamableResult
         $this->jsonReader = new JsonReader($stream);
     }
 
-    public function readJson(string $jsonPointer = ''): iterable
+    public function readJson(string $jsonPointer = '') : iterable
     {
         return $this->jsonReader->read($jsonPointer);
     }
 
-    public static function fromResponse(ResponseInterface $response): self
+    public static function fromResponse(ResponseInterface $response) : self
     {
         return new self($response->getBody());
     }
