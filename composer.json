@@ -1,0 +1,36 @@
+{
+    "name": "bookingcom/client",
+    "description": "Booking.com API client.",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^7.4",
+        "caseyamcl/guzzle_retry_middleware": "^2.2",
+        "guzzlehttp/guzzle": "^6.3",
+        "pcrov/jsonreader": "^1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpunit/phpunit": "^9.1",
+        "psr/log": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bookingcom\\Client\\": "src/"
+        }
+    },
+    "autoload-dev" : {
+        "psr-4": {
+            "Bookingcom\\Client\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "7.4"
+        },
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    }
+}
